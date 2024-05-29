@@ -235,6 +235,7 @@ class ReverseCountdown extends StatelessWidget {
           backgroundColor: Colors.black,
           digitSize: 30.0,
           centerGapSpace: 0.0,
+          arabicMode: false,
           borderRadius: const BorderRadius.all(Radius.circular(3.0)),
           onDone: () {
             print('onDone');
