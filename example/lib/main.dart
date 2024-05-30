@@ -1,4 +1,5 @@
 import 'package:flip_panel_plus/flip_panel_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
@@ -211,7 +212,9 @@ class CountdownClockPage extends StatelessWidget {
           digitSize: 48.0,
           borderRadius: const BorderRadius.all(Radius.circular(3.0)),
           onDone: () {
-            print('OnDone');
+            if (kDebugMode) {
+              print('OnDone');
+            }
           },
         ),
       ),
@@ -235,10 +238,12 @@ class ReverseCountdown extends StatelessWidget {
           backgroundColor: Colors.black,
           digitSize: 30.0,
           centerGapSpace: 0.0,
-          arabicMode: false,
+          arabicMode: true,
           borderRadius: const BorderRadius.all(Radius.circular(3.0)),
           onDone: () {
-            print('onDone');
+            if (kDebugMode) {
+              print('onDone');
+            }
           },
         ),
       ),

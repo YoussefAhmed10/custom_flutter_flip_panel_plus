@@ -471,34 +471,32 @@ class FlipClockPlus extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(
-          children: [
-            Padding(
-              padding: spacing,
-              child: FlipPanelPlus<int>.stream(
-                itemStream:
-                    timeStream.map<int>(tensDigit as int Function(DateTime)),
-                itemBuilder: _digitBuilder,
-                duration: const Duration(milliseconds: 450),
-                initValue: tensDigit(startTime),
-                direction: flipDirection,
-                spacing: centerGapSpace,
-              ),
+        Row(children: [
+          Padding(
+            padding: spacing,
+            child: FlipPanelPlus<int>.stream(
+              itemStream:
+                  timeStream.map<int>(tensDigit as int Function(DateTime)),
+              itemBuilder: _digitBuilder,
+              duration: const Duration(milliseconds: 450),
+              initValue: tensDigit(startTime),
+              direction: flipDirection,
+              spacing: centerGapSpace,
             ),
-            Padding(
-              padding: spacing,
-              child: FlipPanelPlus<int>.stream(
-                itemStream:
-                    timeStream.map<int>(onesDigit as int Function(DateTime)),
-                itemBuilder: _digitBuilder,
-                duration: const Duration(milliseconds: 450),
-                initValue: onesDigit(startTime),
-                spacing: centerGapSpace,
-                direction: flipDirection,
-              ),
+          ),
+          Padding(
+            padding: spacing,
+            child: FlipPanelPlus<int>.stream(
+              itemStream:
+                  timeStream.map<int>(onesDigit as int Function(DateTime)),
+              itemBuilder: _digitBuilder,
+              duration: const Duration(milliseconds: 450),
+              initValue: onesDigit(startTime),
+              spacing: centerGapSpace,
+              direction: flipDirection,
             ),
-          ],
-        ),
+          ),
+        ]),
         (_showDays)
             ? id.isNotEmpty
                 ? Row(
