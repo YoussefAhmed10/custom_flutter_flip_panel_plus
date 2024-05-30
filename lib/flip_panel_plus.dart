@@ -261,242 +261,277 @@ class FlipClockPlus extends StatelessWidget {
 
     var digitList = <Widget>[];
 
-    return _arabicMode == false
-        ? Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: _showDays
-                ? CrossAxisAlignment.start
-                : CrossAxisAlignment.center,
-            children: digitList
-              ..addAll(
-                [
-                  //Days
-                  _buildSegment(
-                    timeStream,
-                    (DateTime time) =>
-                        (timeLeft!.inDays > 99) ? 9 : (timeLeft!.inDays ~/ 10),
-                    (DateTime time) =>
-                        (timeLeft!.inDays > 99) ? 9 : (timeLeft!.inDays % 10),
-                    startTime,
-                    _daysLabelStr ?? "days",
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Padding(
-                        padding: spacing,
-                        child: _separator,
-                      ),
-                      (_showDays)
-                          ? Container(color: Colors.black)
-                          : Container(
-                              color: Colors.transparent,
-                            )
-                    ],
-                  ),
-                  //Hours
-                  _buildSegment(
-                      timeStream,
-                      (DateTime time) => (countdownMode)
-                          ? (timeLeft!.inHours % 24) ~/ 10
-                          : (time.hour) ~/ 10,
-                      (DateTime time) => (countdownMode)
-                          ? (timeLeft!.inHours % 24) % 10
-                          : (time.hour) % 10,
-                      startTime,
-                      _hoursLabelStr ?? "Hours"),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Padding(
-                        padding: spacing,
-                        child: _separator,
-                      ),
-                      (_showDays)
-                          ? Container(color: Colors.black)
-                          : Container(
-                              color: Colors.transparent,
-                            )
-                    ],
-                  ),
+    return
+        // _arabicMode == false
+        //     ?
+        Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment:
+          _showDays ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      children: digitList
+        ..addAll(
+          [
+            //Days
+            _buildSegment(
+              isArabicMode: _arabicMode,
+              timeStream,
+              (DateTime time) =>
+                  (timeLeft!.inDays > 99) ? 9 : (timeLeft!.inDays ~/ 10),
+              (DateTime time) =>
+                  (timeLeft!.inDays > 99) ? 9 : (timeLeft!.inDays % 10),
+              startTime,
+              _daysLabelStr ?? "days",
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: spacing,
+                  child: _separator,
+                ),
+                (_showDays)
+                    ? Container(color: Colors.black)
+                    : Container(
+                        color: Colors.transparent,
+                      )
+              ],
+            ),
+            //Hours
+            _buildSegment(
+                isArabicMode: _arabicMode,
+                timeStream,
+                (DateTime time) => (countdownMode)
+                    ? (timeLeft!.inHours % 24) ~/ 10
+                    : (time.hour) ~/ 10,
+                (DateTime time) => (countdownMode)
+                    ? (timeLeft!.inHours % 24) % 10
+                    : (time.hour) % 10,
+                startTime,
+                _hoursLabelStr ?? "Hours"),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: spacing,
+                  child: _separator,
+                ),
+                (_showDays)
+                    ? Container(color: Colors.black)
+                    : Container(
+                        color: Colors.transparent,
+                      )
+              ],
+            ),
 
-                  // Minutes
-                  _buildSegment(
-                      timeStream,
-                      (DateTime time) => (countdownMode)
-                          ? (timeLeft!.inMinutes % 60) ~/ 10
-                          : (time.minute) ~/ 10,
-                      (DateTime time) => (countdownMode)
-                          ? (timeLeft!.inMinutes % 60) % 10
-                          : (time.minute) % 10,
-                      startTime,
-                      _minutesLabelStr ?? "minutes"),
+            // Minutes
+            _buildSegment(
+                isArabicMode: _arabicMode,
+                timeStream,
+                (DateTime time) => (countdownMode)
+                    ? (timeLeft!.inMinutes % 60) ~/ 10
+                    : (time.minute) ~/ 10,
+                (DateTime time) => (countdownMode)
+                    ? (timeLeft!.inMinutes % 60) % 10
+                    : (time.minute) % 10,
+                startTime,
+                _minutesLabelStr ?? "minutes"),
 
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Padding(
-                        padding: spacing,
-                        child: _separator,
-                      ),
-                      (_showDays)
-                          ? Container(color: Colors.black)
-                          : Container(
-                              color: Colors.transparent,
-                            )
-                    ],
-                  ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: spacing,
+                  child: _separator,
+                ),
+                (_showDays)
+                    ? Container(color: Colors.black)
+                    : Container(
+                        color: Colors.transparent,
+                      )
+              ],
+            ),
 
-                  // Seconds
-                  _buildSegment(
-                      timeStream,
-                      (DateTime time) => (countdownMode)
-                          ? (timeLeft!.inSeconds % 60) ~/ 10
-                          : (time.second) ~/ 10,
-                      (DateTime time) => (countdownMode)
-                          ? (timeLeft!.inSeconds % 60) % 10
-                          : (time.second) % 10,
-                      startTime,
-                      _secondsLabelStr ?? "seconds")
-                ],
-              ),
-          )
-        : Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: _showDays
-                ? CrossAxisAlignment.start
-                : CrossAxisAlignment.center,
-            children: digitList
-              ..addAll(
-                [
-                  //Seconds
-                  _buildSegment(
-                      timeStream,
-                      (DateTime time) => (countdownMode)
-                          ? (timeLeft!.inSeconds % 60) ~/ 10
-                          : (time.second) ~/ 10,
-                      (DateTime time) => (countdownMode)
-                          ? (timeLeft!.inSeconds % 60) % 10
-                          : (time.second) % 10,
-                      startTime,
-                      _secondsLabelStr ?? "seconds"),
+            // Seconds
+            _buildSegment(
+                isArabicMode: _arabicMode,
+                timeStream,
+                (DateTime time) => (countdownMode)
+                    ? (timeLeft!.inSeconds % 60) ~/ 10
+                    : (time.second) ~/ 10,
+                (DateTime time) => (countdownMode)
+                    ? (timeLeft!.inSeconds % 60) % 10
+                    : (time.second) % 10,
+                startTime,
+                _secondsLabelStr ?? "seconds")
+          ],
+        ),
+    );
+    // : Row(
+    //     mainAxisSize: MainAxisSize.min,
+    //     crossAxisAlignment: _showDays
+    //         ? CrossAxisAlignment.start
+    //         : CrossAxisAlignment.center,
+    //     children: digitList
+    //       ..addAll(
+    //         [
+    //           //Seconds
+    //           _buildSegment(
+    //               timeStream,
+    //               (DateTime time) => (countdownMode)
+    //                   ? (timeLeft!.inSeconds % 60) ~/ 10
+    //                   : (time.second) ~/ 10,
+    //               (DateTime time) => (countdownMode)
+    //                   ? (timeLeft!.inSeconds % 60) % 10
+    //                   : (time.second) % 10,
+    //               startTime,
+    //               _secondsLabelStr ?? "seconds"),
 
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Padding(
-                        padding: spacing,
-                        child: _separator,
-                      ),
-                      (_showDays)
-                          ? Container(color: Colors.black)
-                          : Container(
-                              color: Colors.transparent,
-                            )
-                    ],
-                  ),
-                  // Minutes
-                  _buildSegment(
-                      timeStream,
-                      (DateTime time) => (countdownMode)
-                          ? (timeLeft!.inMinutes % 60) ~/ 10
-                          : (time.minute) ~/ 10,
-                      (DateTime time) => (countdownMode)
-                          ? (timeLeft!.inMinutes % 60) % 10
-                          : (time.minute) % 10,
-                      startTime,
-                      _minutesLabelStr ?? "minutes"),
+    //           Column(
+    //             mainAxisSize: MainAxisSize.min,
+    //             children: <Widget>[
+    //               Padding(
+    //                 padding: spacing,
+    //                 child: _separator,
+    //               ),
+    //               (_showDays)
+    //                   ? Container(color: Colors.black)
+    //                   : Container(
+    //                       color: Colors.transparent,
+    //                     )
+    //             ],
+    //           ),
+    //           // Minutes
+    //           _buildSegment(
+    //               timeStream,
+    //               (DateTime time) => (countdownMode)
+    //                   ? (timeLeft!.inMinutes % 60) ~/ 10
+    //                   : (time.minute) ~/ 10,
+    //               (DateTime time) => (countdownMode)
+    //                   ? (timeLeft!.inMinutes % 60) % 10
+    //                   : (time.minute) % 10,
+    //               startTime,
+    //               _minutesLabelStr ?? "minutes"),
 
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Padding(
-                        padding: spacing,
-                        child: _separator,
-                      ),
-                      (_showDays)
-                          ? Container(color: Colors.black)
-                          : Container(
-                              color: Colors.transparent,
-                            )
-                    ],
-                  ),
+    //           Column(
+    //             mainAxisSize: MainAxisSize.min,
+    //             children: <Widget>[
+    //               Padding(
+    //                 padding: spacing,
+    //                 child: _separator,
+    //               ),
+    //               (_showDays)
+    //                   ? Container(color: Colors.black)
+    //                   : Container(
+    //                       color: Colors.transparent,
+    //                     )
+    //             ],
+    //           ),
 
-                  // Hours
+    //           // Hours
 
-                  _buildSegment(
-                      timeStream,
-                      (DateTime time) => (countdownMode)
-                          ? (timeLeft!.inHours % 24) ~/ 10
-                          : (time.hour) ~/ 10,
-                      (DateTime time) => (countdownMode)
-                          ? (timeLeft!.inHours % 24) % 10
-                          : (time.hour) % 10,
-                      startTime,
-                      _hoursLabelStr ?? "Hours"),
+    //           _buildSegment(
+    //               timeStream,
+    //               (DateTime time) => (countdownMode)
+    //                   ? (timeLeft!.inHours % 24) ~/ 10
+    //                   : (time.hour) ~/ 10,
+    //               (DateTime time) => (countdownMode)
+    //                   ? (timeLeft!.inHours % 24) % 10
+    //                   : (time.hour) % 10,
+    //               startTime,
+    //               _hoursLabelStr ?? "Hours"),
 
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Padding(
-                        padding: spacing,
-                        child: _separator,
-                      ),
-                      (_showDays)
-                          ? Container(color: Colors.black)
-                          : Container(
-                              color: Colors.transparent,
-                            )
-                    ],
-                  ),
+    //           Column(
+    //             mainAxisSize: MainAxisSize.min,
+    //             children: <Widget>[
+    //               Padding(
+    //                 padding: spacing,
+    //                 child: _separator,
+    //               ),
+    //               (_showDays)
+    //                   ? Container(color: Colors.black)
+    //                   : Container(
+    //                       color: Colors.transparent,
+    //                     )
+    //             ],
+    //           ),
 
-                  // Days
+    //           // Days
 
-                  _buildSegment(
-                    timeStream,
-                    (DateTime time) =>
-                        (timeLeft!.inDays > 99) ? 9 : (timeLeft!.inDays ~/ 10),
-                    (DateTime time) =>
-                        (timeLeft!.inDays > 99) ? 9 : (timeLeft!.inDays % 10),
-                    startTime,
-                    _daysLabelStr ?? "days",
-                  ),
-                ],
-              ),
-          );
+    //           _buildSegment(
+    //             timeStream,
+    //             (DateTime time) =>
+    //                 (timeLeft!.inDays > 99) ? 9 : (timeLeft!.inDays ~/ 10),
+    //             (DateTime time) =>
+    //                 (timeLeft!.inDays > 99) ? 9 : (timeLeft!.inDays % 10),
+    //             startTime,
+    //             _daysLabelStr ?? "days",
+    //           ),
+    //         ],
+    //       ),
+    //   );
   }
 
   _buildSegment(Stream<DateTime> timeStream, Function tensDigit,
-      Function onesDigit, DateTime startTime, String id) {
+      Function onesDigit, DateTime startTime, String id,
+      {required bool? isArabicMode}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Row(children: [
-          Padding(
-            padding: spacing,
-            child: FlipPanelPlus<int>.stream(
-              itemStream:
-                  timeStream.map<int>(tensDigit as int Function(DateTime)),
-              itemBuilder: _digitBuilder,
-              duration: const Duration(milliseconds: 450),
-              initValue: tensDigit(startTime),
-              direction: flipDirection,
-              spacing: centerGapSpace,
-            ),
-          ),
-          Padding(
-            padding: spacing,
-            child: FlipPanelPlus<int>.stream(
-              itemStream:
-                  timeStream.map<int>(onesDigit as int Function(DateTime)),
-              itemBuilder: _digitBuilder,
-              duration: const Duration(milliseconds: 450),
-              initValue: onesDigit(startTime),
-              spacing: centerGapSpace,
-              direction: flipDirection,
-            ),
-          ),
-        ]),
+        Row(
+          children: isArabicMode == true
+              ? <Widget>[
+                  Padding(
+                    padding: spacing,
+                    child: FlipPanelPlus<int>.stream(
+                      itemStream: timeStream
+                          .map<int>(onesDigit as int Function(DateTime)),
+                      itemBuilder: _digitBuilder,
+                      duration: const Duration(milliseconds: 450),
+                      initValue: onesDigit(startTime),
+                      spacing: centerGapSpace,
+                      direction: flipDirection,
+                    ),
+                  ),
+                  Padding(
+                    padding: spacing,
+                    child: FlipPanelPlus<int>.stream(
+                      itemStream: timeStream
+                          .map<int>(tensDigit as int Function(DateTime)),
+                      itemBuilder: _digitBuilder,
+                      duration: const Duration(milliseconds: 450),
+                      initValue: tensDigit(startTime),
+                      direction: flipDirection,
+                      spacing: centerGapSpace,
+                    ),
+                  ),
+                ]
+              : [
+                  Padding(
+                    padding: spacing,
+                    child: FlipPanelPlus<int>.stream(
+                      itemStream: timeStream
+                          .map<int>(tensDigit as int Function(DateTime)),
+                      itemBuilder: _digitBuilder,
+                      duration: const Duration(milliseconds: 450),
+                      initValue: tensDigit(startTime),
+                      direction: flipDirection,
+                      spacing: centerGapSpace,
+                    ),
+                  ),
+                  Padding(
+                    padding: spacing,
+                    child: FlipPanelPlus<int>.stream(
+                      itemStream: timeStream
+                          .map<int>(onesDigit as int Function(DateTime)),
+                      itemBuilder: _digitBuilder,
+                      duration: const Duration(milliseconds: 450),
+                      initValue: onesDigit(startTime),
+                      spacing: centerGapSpace,
+                      direction: flipDirection,
+                    ),
+                  ),
+                ],
+        ),
         (_showDays)
             ? id.isNotEmpty
                 ? Row(

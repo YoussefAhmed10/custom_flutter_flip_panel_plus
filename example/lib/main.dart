@@ -231,20 +231,23 @@ class ReverseCountdown extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Reverse Countdown'),
       ),
-      body: Center(
-        child: FlipClockPlus.reverseCountdown(
-          duration: const Duration(days: 10),
-          digitColor: Colors.white,
-          backgroundColor: Colors.black,
-          digitSize: 30.0,
-          centerGapSpace: 0.0,
-          arabicMode: true,
-          borderRadius: const BorderRadius.all(Radius.circular(3.0)),
-          onDone: () {
-            if (kDebugMode) {
-              print('onDone');
-            }
-          },
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Center(
+          child: FlipClockPlus.reverseCountdown(
+            duration: const Duration(days: 10),
+            digitColor: Colors.white,
+            backgroundColor: Colors.black,
+            digitSize: 30.0,
+            centerGapSpace: 0.0,
+            arabicMode: true,
+            borderRadius: const BorderRadius.all(Radius.circular(3.0)),
+            onDone: () {
+              if (kDebugMode) {
+                print('onDone');
+              }
+            },
+          ),
         ),
       ),
     );
